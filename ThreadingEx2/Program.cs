@@ -1,6 +1,7 @@
 ﻿using System;
 using System.CodeDom.Compiler;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -12,12 +13,9 @@ namespace FindSmallest
     internal class Program
     {
 
-    Generator _generator = new Generator();
-    {
-      
-    }
-    
-  
+
+
+
 
         private static readonly int[][] Data = new int[][]
         {
@@ -26,7 +24,7 @@ namespace FindSmallest
             new[] {33, 2, 3, -1, 10},
             new[] {3, 2, 8, 9, -1},
             new[] {1, 22, 1, 9, -3, 5}
-            
+
         };
 
 
@@ -62,15 +60,20 @@ namespace FindSmallest
                 {
                     largestSoFar = number;
                 }
-                
+
             }
             return largestSoFar;
         }
 
+      
         private static void Main()
         {
-         
+
+
+
             List<Task<int>> Liste = new List<Task<int>>();
+            List<Task<int>> Liste2 = new List<Task<int>>();
+
 
 
             foreach (int[] littled in Data)
@@ -85,18 +88,9 @@ namespace FindSmallest
                     );
                 minTredjeOpg.Start();
                 Liste.Add(minTredjeOpg);
-                //Thread t1 = new Thread(() =>
-                //{
 
-                //    int smallest = FindSmallest(littled);
-
-                //    Console.WriteLine(smallest);
-                //    // Console.WriteLine("\t" + String.Join(", ", littled) + "\n-> " + smallest);
-
-
-
-                //t1.Start();
-                // Console.ReadLine();
+                
+            
 
             }
             foreach (int[] biggerd in Data)
@@ -107,14 +101,41 @@ namespace FindSmallest
                     Console.WriteLine(largest);
                     return largest;
                 }
-                );
+                    );
                 minFjerdeOpg.Start();
-                
+
                 Liste.Add(minFjerdeOpg);
             }
 
             Task.WaitAll(Liste.ToArray());
+
+            //List<int> tempsmallest = new List<int>();
+
+            //foreach (var ts in Liste)
+            //{
+            //    tempsmallest.Add(ts.Result);                
+                
+            //}
            
+            //int s = FindSmallest(tempsmallest.ToArray());
+
+          
+
+            //List<int> templargest = new List<int>();
+
+            //foreach (var tl in Liste)
+            //{
+            //    templargest.Add(tl.Result);
+            //}
+
+            //int l = FindLargest(templargest.ToArray());
+
+            
+
+            //Console.WriteLine("\n The Smallest is:"+ s);
+            //Console.Write("\n The largest is:" + l);
+            //Console.WriteLine("\n");
+
         }
     }
 }
